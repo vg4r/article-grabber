@@ -9,6 +9,8 @@ import java.net.*;
 @Component("fetcher-http")
 public class HTTPFetcher extends Fetcher {
 
+
+
     @Override
     public byte[] fetch() {
         try {

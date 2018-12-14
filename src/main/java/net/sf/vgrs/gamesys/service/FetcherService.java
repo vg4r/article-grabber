@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 public class FetcherService {
 
     @Autowired
-    @Qualifier("fetcher-http")
+    @Qualifier("fetcherProvider")
     private Fetcher fetcher;
 
     @Autowired
-    @Qualifier("deserializer-jsonmapper")
+    @Qualifier("deserializerProvider")
     private Deserializer deserializer;
 
 

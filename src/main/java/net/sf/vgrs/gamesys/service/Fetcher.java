@@ -12,7 +12,7 @@ import java.net.URI;
 public abstract class Fetcher {
 
     @Autowired
-    @Value("${app.rss.url}")
+    @Value("${app.data.source.url}")
     protected URI uri;
 
     public abstract byte[] fetch();
