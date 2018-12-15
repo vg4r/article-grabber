@@ -3,18 +3,20 @@ package net.sf.vgrs.gamesys.service;
 import net.sf.vgrs.gamesys.domain.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class FetcherService {
 
-    @Autowired
-    @Qualifier("fetcherProvider")
-    private Fetcher fetcher;
+    private final Fetcher fetcher;
+
+    private final Deserializer deserializer;
 
     @Autowired
-    @Qualifier("deserializerProvider")
-    private Deserializer deserializer;
+    public FetcherService(@Qualifier("fetcherProvider") Fetcher fetcher, @Qualifier("deserializerProvider") Deserializer deserializer) {
+        this.fetcher = fetcher;
+        this.deserializer = deserializer;
+    }
 
 
     public Response fetch() throws Exception {

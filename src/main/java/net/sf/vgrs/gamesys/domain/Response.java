@@ -4,6 +4,34 @@ import java.util.List;
 
 public class Response {
 
+    public enum ResponseStatuses{
+        OK("ok"),
+        ERROR("error");
+
+        private String value;
+
+        ResponseStatuses(String value){
+            this.value = value;
+        }
+
+        public String value(){
+            return value;
+        }
+
+    }
+
+    public Response(){
+        this.status = ResponseStatuses.OK.value();
+    }
+
+    public Response(ResponseStatuses status){
+        this.status = status.value();
+    }
+
+    public Response(String status){
+        this.status = status;
+    }
+
     private int totalResults;
     private String status;
 

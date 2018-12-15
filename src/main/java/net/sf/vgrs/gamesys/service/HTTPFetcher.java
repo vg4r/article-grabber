@@ -1,5 +1,6 @@
 package net.sf.vgrs.gamesys.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -9,7 +10,9 @@ import java.net.*;
 @Component("fetcher-http")
 public class HTTPFetcher extends Fetcher {
 
-
+    public HTTPFetcher(@Value("${app.data.source.url}") URI uri) {
+        super(uri);
+    }
 
     @Override
     public byte[] fetch() {

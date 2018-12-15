@@ -11,9 +11,13 @@ import java.net.URI;
 @Component
 public abstract class Fetcher {
 
-    @Autowired
-    @Value("${app.data.source.url}")
+
     protected URI uri;
+
+    @Autowired
+    public Fetcher(@Value("${app.data.source.url}") URI uri){
+        this.uri = uri;
+    }
 
     public abstract byte[] fetch();
 
