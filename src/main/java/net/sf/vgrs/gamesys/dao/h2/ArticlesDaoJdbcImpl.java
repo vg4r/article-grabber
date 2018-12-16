@@ -5,19 +5,25 @@ import net.sf.vgrs.gamesys.dao.BaseDao;
 import net.sf.vgrs.gamesys.dao.JdbcConnectionManager;
 import net.sf.vgrs.gamesys.domain.Article;
 import net.sf.vgrs.gamesys.domain.exceptions.DBException;
-import net.sf.vgrs.gamesys.domain.exceptions.DuplicateElementException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
+import java.sql.BatchUpdateException;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static net.sf.vgrs.gamesys.dao.h2.SqlConstants.DELETE_ARTICLES;
 import static net.sf.vgrs.gamesys.dao.h2.SqlConstants.INSERT_ARTICLES;
 import static net.sf.vgrs.gamesys.dao.h2.SqlConstants.SELECT_ARTICLES;
 
 @Repository("dao-h2-jdbc")
 public class ArticlesDaoJdbcImpl extends BaseDao implements ArticlesDao {
 
+    Logger logger = LoggerFactory.getLogger(ArticlesDaoJdbcTemplateImpl.class);
 
     public ArticlesDaoJdbcImpl(JdbcConnectionManager jdbcConnectionManager1) {
         super(jdbcConnectionManager1);
@@ -25,17 +31,17 @@ public class ArticlesDaoJdbcImpl extends BaseDao implements ArticlesDao {
 
     @Override
     public void add(Article article) {
-
+        //todo Implement do add single article
     }
 
     /**
      * Method for adding articles to database. Methods provides bulk insert.
      *
      * @param articles list of articles to be added to database
-     * @return
+     * @return Number of added rows
      */
     @Override
-    public void add(List<Article> articles) throws DBException {
+    public long add(List<Article> articles) throws DBException {
         try {
             jdbcConnectionManager.openConnection();
             jdbcConnectionManager.prepareStatement(INSERT_ARTICLES, ps -> {
@@ -49,11 +55,21 @@ public class ArticlesDaoJdbcImpl extends BaseDao implements ArticlesDao {
                     ps.addBatch();
                 }
             });
+            int[] ints = jdbcConnectionManager.executeBatch();
+            jdbcConnectionManager.commit();
+            return Arrays.stream(ints).sum();
         } catch (BatchUpdateException b) {
             if (H2SQLStates.DUPLICATE_KEY_1.value.equals(b.getSQLState())) {
-                throw new DuplicateElementException();
+                int[] updateCounts = b.getUpdateCounts();
+                long count = Arrays.stream(updateCounts).filter(i -> i == 1).count();
+                logger.info("Duplicate key error occurred during batch inset. Added " + count + " of " + articles.size());
+                return count;
+            } else {
+                logger.info("BatchUpdateException occurred during batch inset", b);
             }
+            throw new DBException(b);
         } catch (SQLException e) {
+            logger.error("SQLException occurred during batch inset", e);
             throw new DBException(e);
         }
     }
@@ -65,12 +81,12 @@ public class ArticlesDaoJdbcImpl extends BaseDao implements ArticlesDao {
      * @return list of Article objects. in case of no articles in database it will return empty list
      */
     @Override
-    public List<Article> get(int rowCount) throws DBException {
-        List<Article> articles = new ArrayList<>();
+    public List<Article> get(long rowCount) throws DBException {
         try {
+            List<Article> articles = new ArrayList<>();
             jdbcConnectionManager.openConnection();
             jdbcConnectionManager.prepareStatement(SELECT_ARTICLES, ps -> {
-                ps.setInt(1, rowCount);
+                ps.setLong(1, rowCount);
             });
             jdbcConnectionManager.executeQuery(rs -> {
                 while (rs.next()) {
@@ -84,9 +100,23 @@ public class ArticlesDaoJdbcImpl extends BaseDao implements ArticlesDao {
                     articles.add(article);
                 }
             });
+            return articles;
         } catch (SQLException e) {
+            logger.error("SQLException occurred during getting data from database", e);
             throw new DBException(e);
         }
-        return articles;
+    }
+
+    @Override
+    public void delete() throws DBException{
+        try {
+            jdbcConnectionManager.openConnection();
+            jdbcConnectionManager.prepareStatement(DELETE_ARTICLES, ps -> { });
+            jdbcConnectionManager.execute();
+            jdbcConnectionManager.commit();
+        } catch (SQLException e) {
+            logger.error("SQLException occurred during getting data from database", e);
+            throw new DBException(e);
+        }
     }
 }

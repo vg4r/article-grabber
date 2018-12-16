@@ -15,6 +15,30 @@ public class Article {
     private String description;
     private String content;
 
+    public Article() {
+
+    }
+
+    public Article(String url, String author, String title, Date publishedDate, String description, String content) {
+        this.url = url;
+        this.source = source;
+        this.author = author;
+        this.title = title;
+        this.publishedDate = publishedDate;
+        this.description = description;
+        this.content = content;
+    }
+
+    public Article(String url, ArticleSource source, String author, String title, Date publishedDate, String description, String content) {
+        this.url = url;
+        this.source = source;
+        this.author = author;
+        this.title = title;
+        this.publishedDate = publishedDate;
+        this.description = description;
+        this.content = content;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -71,5 +95,11 @@ public class Article {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+
+    @Override
+    public Article clone() throws CloneNotSupportedException {
+        return (Article) super.clone();
     }
 }

@@ -1,6 +1,9 @@
 package net.sf.vgrs.gamesys.dao;
 
+import net.sf.vgrs.gamesys.dao.h2.ArticlesDaoJdbcTemplateImpl;
 import net.sf.vgrs.gamesys.domain.exceptions.DBException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -14,6 +17,8 @@ import java.sql.SQLException;
 @Component
 public class JdbcConnectionManager implements Closeable {
 
+    Logger logger = LoggerFactory.getLogger(JdbcConnectionManager.class);
+
     private final DataSource dataSource;
 
     private Connection con;
@@ -26,6 +31,7 @@ public class JdbcConnectionManager implements Closeable {
 
     public void openConnection() throws SQLException {
         if (con == null || con.isClosed()) {
+            logger.trace("Opende connection to database");
             con = dataSource.getConnection();
         }
     }
