@@ -7,6 +7,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.nio.charset.Charset;
+
 import static org.junit.Assert.assertEquals;
 
 // import static org.junit.Assert.*;
@@ -25,11 +27,12 @@ public class DeserializerJsonMapperImplTest {
 
     @Test
     public void deserialize() throws Exception {
-        Response response = deserializer.deserialize(TestConstants.TEST_ARTICLES_URL_JSON_RESPONSE.getBytes(), Response.class);
+        System.out.println();
 
+        byte[] bytes = TestConstants.TEST_ARTICLES_URL_JSON_RESPONSE
+                .getBytes(Charset.forName("UTF-8"));
+        Response response = deserializer.deserialize(bytes, Response.class);
         assertEquals(Response.ResponseStatuses.OK.value(), response.getStatus());
-
         assertEquals(2, response.getArticles().size());
-
     }
 }

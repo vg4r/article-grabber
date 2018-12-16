@@ -7,6 +7,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.nio.charset.Charset;
+
 import static org.junit.Assert.assertTrue;
 
 // import static org.junit.Assert.*;
@@ -26,7 +28,8 @@ public class DeserializerXmlMapperImplTest {
 
     @Test
     public void deserialize() throws Exception {
-        Response response = deserializer.deserialize(TestConstants.TEST_ARTICLES_URL_XML_RESPONSE.getBytes(), Response.class);
+        Response response = deserializer.deserialize(TestConstants.TEST_ARTICLES_URL_XML_RESPONSE
+                .getBytes(Charset.forName("UTF-8")), Response.class);
 
         assertTrue(Response.ResponseStatuses.OK.value().equals(response.getStatus()));
 

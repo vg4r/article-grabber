@@ -100,7 +100,7 @@ public class JdbcConnectionManager implements Closeable {
         }
 
         try {
-            if (con != null) {
+            if (con != null && !con.isClosed()) {
                 con.close();
             }
         } catch (SQLException e) {
