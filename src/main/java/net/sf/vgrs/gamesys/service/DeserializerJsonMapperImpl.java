@@ -8,8 +8,8 @@ public class DeserializerJsonMapperImpl implements Deserializer {
 
     @Override
     public <T> T deserialize(byte[] bytes, Class<T> type) throws Exception {
-        ObjectMapper xmlMapper = new ObjectMapper();
-        return xmlMapper.readValue(bytes, type);
+        ObjectMapper jsonMapper = new ObjectMapper();
+        return jsonMapper.readValue(bytes, type);
 
     }
 }

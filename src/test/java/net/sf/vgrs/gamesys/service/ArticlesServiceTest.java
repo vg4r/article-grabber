@@ -14,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.List;
 
 import static net.sf.vgrs.gamesys.utils.TestConstants.ARTICLE_LIST_1;
+import static net.sf.vgrs.gamesys.utils.TestConstants.ARTICLE_LIST_3;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,7 +36,7 @@ public class ArticlesServiceTest {
     @Test
     public void add() throws DBException {
         Mockito.when(articlesDao.add(Mockito.anyList())).thenReturn(2L);
-        long count = articlesService.add(ARTICLE_LIST_1);
+        long count = articlesService.add(ARTICLE_LIST_3);
         assertEquals(2, count);
     }
 

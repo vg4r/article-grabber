@@ -4,7 +4,7 @@ public abstract class BaseDao {
 
     public final JdbcConnectionManager jdbcConnectionManager;
 
-    public BaseDao(JdbcConnectionManager jdbcConnectionManager1){
+    public BaseDao(JdbcConnectionManager jdbcConnectionManager1) {
 
         this.jdbcConnectionManager = jdbcConnectionManager1;
     }

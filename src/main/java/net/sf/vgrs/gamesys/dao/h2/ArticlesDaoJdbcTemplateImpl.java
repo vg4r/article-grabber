@@ -3,9 +3,6 @@ package net.sf.vgrs.gamesys.dao.h2;
 import net.sf.vgrs.gamesys.dao.ArticlesDao;
 import net.sf.vgrs.gamesys.domain.Article;
 import net.sf.vgrs.gamesys.domain.exceptions.DBException;
-import net.sf.vgrs.gamesys.service.SchedulerService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,13 +21,13 @@ public class ArticlesDaoJdbcTemplateImpl implements ArticlesDao {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void add(Article article){
+    public void add(Article article) {
         //todo Implement do add single article
     }
 
     @Override
-    public long add(List<Article> articles){
-        try{
+    public long add(List<Article> articles) {
+        try {
             //todo fix bug in JdbcTemplate batchUpdate. There is bug that, it throws exception even if no duplicate elements
             int[] ints = jdbcTemplate.batchUpdate(INSERT_ARTICLES, new BatchPreparedStatementSetter() {
                 @Override
@@ -44,12 +41,13 @@ public class ArticlesDaoJdbcTemplateImpl implements ArticlesDao {
                     ps.setString(6, entry.getContent());
                     ps.addBatch();
                 }
+
                 @Override
                 public int getBatchSize() {
                     return articles.size();
                 }
             });
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return 0;
@@ -57,7 +55,7 @@ public class ArticlesDaoJdbcTemplateImpl implements ArticlesDao {
 
 
     @Override
-    public List<Article> get(long rowCount){
+    public List<Article> get(long rowCount) {
         //todo Implement get article list via JdbcTemplate
         return null;
     }

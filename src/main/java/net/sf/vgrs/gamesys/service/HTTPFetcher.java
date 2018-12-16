@@ -1,5 +1,6 @@
 package net.sf.vgrs.gamesys.service;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +22,7 @@ public class HTTPFetcher extends Fetcher {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             InputStream inputStream = con.getInputStream();
-            byte[] targetArray = new byte[inputStream.available()];
-            int read = inputStream.read(targetArray);
-            return targetArray;
+            return IOUtils.toByteArray(inputStream);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {

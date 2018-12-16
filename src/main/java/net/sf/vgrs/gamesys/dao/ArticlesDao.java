@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ArticlesDao  {
+public interface ArticlesDao {
 
     public long add(List<Article> articles) throws DBException;
 

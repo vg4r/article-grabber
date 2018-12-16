@@ -4,38 +4,20 @@ import java.util.List;
 
 public class Response {
 
-    public enum ResponseStatuses{
-        OK("ok"),
-        ERROR("error");
+    private int totalResults;
+    private String status;
+    private List<Article> articles;
 
-        private String value;
-
-        ResponseStatuses(String value){
-            this.value = value;
-        }
-
-        public String value(){
-            return value;
-        }
-
-    }
-
-    public Response(){
+    public Response() {
         this.status = ResponseStatuses.OK.value();
     }
 
-    public Response(ResponseStatuses status){
+    public Response(ResponseStatuses status) {
         this.status = status.value();
     }
-
-    public Response(String status){
+    public Response(String status) {
         this.status = status;
     }
-
-    private int totalResults;
-    private String status;
-
-    private List<Article> articles;
 
     public int getTotalResults() {
         return totalResults;
@@ -59,5 +41,21 @@ public class Response {
 
     public void setArticles(List<Article> articles) {
         this.articles = articles;
+    }
+
+    public enum ResponseStatuses {
+        OK("ok"),
+        ERROR("error");
+
+        private String value;
+
+        ResponseStatuses(String value) {
+            this.value = value;
+        }
+
+        public String value() {
+            return value;
+        }
+
     }
 }

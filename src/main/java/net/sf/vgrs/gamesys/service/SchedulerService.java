@@ -27,8 +27,9 @@ public class SchedulerService {
         logger.trace("Scheduled call getArticles");
         try {
             Response response = service.fetch();
-            long addCount = articlesService.add(response.getArticles());
-            logger.trace("Got "+ response.getArticles().size() +" article, added " + addCount + " of them");
+
+            logger.trace("Got " + response.getArticles().size() + " articles");
+            articlesService.add(response.getArticles());
         } catch (Exception e) {
             logger.error("Exception occurred during scheduled method", e);
         }

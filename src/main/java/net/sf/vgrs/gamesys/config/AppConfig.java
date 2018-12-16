@@ -18,8 +18,8 @@ public class AppConfig {
     /**
      * User can define which db implementation (for now we have only 1 working one jdbc) to choose from property file.
      * Bean is created to be able to get qualifier names from application.property file.
-     * @param provider The name of bean that gets from property file
      *
+     * @param provider The name of bean that gets from property file
      * @return Creates new instance of bean with the provider and return
      */
     @Bean
@@ -30,8 +30,8 @@ public class AppConfig {
     /**
      * User can define which deserialization implementation (json or xml) to choose from property file.
      * Bean is created to be able to get qualifier names from application.property file.
-     * @param provider The name of bean that gets from property file
      *
+     * @param provider The name of bean that gets from property file
      * @return Creates new instance of bean with the provider and return
      */
     @Bean
@@ -42,8 +42,8 @@ public class AppConfig {
     /**
      * User can define which fetching implementation (for now we have only http) to choose from property file.
      * Bean is created to be able to get qualifier names from application.property file.
-     * @param provider The name of bean that gets from property file
      *
+     * @param provider The name of bean that gets from property file
      * @return Creates new instance of bean with the provider and return
      */
     @Bean

@@ -11,14 +11,11 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.BatchUpdateException;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static net.sf.vgrs.gamesys.dao.h2.SqlConstants.DELETE_ARTICLES;
-import static net.sf.vgrs.gamesys.dao.h2.SqlConstants.INSERT_ARTICLES;
-import static net.sf.vgrs.gamesys.dao.h2.SqlConstants.SELECT_ARTICLES;
+import static net.sf.vgrs.gamesys.dao.h2.SqlConstants.*;
 
 @Repository("dao-h2-jdbc")
 public class ArticlesDaoJdbcImpl extends BaseDao implements ArticlesDao {
@@ -108,7 +105,7 @@ public class ArticlesDaoJdbcImpl extends BaseDao implements ArticlesDao {
     }
 
     @Override
-    public void delete() throws DBException{
+    public void delete() throws DBException {
         try {
             jdbcConnectionManager.openConnection();
             jdbcConnectionManager.prepareStatement(DELETE_ARTICLES, ps -> { });
