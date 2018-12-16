@@ -8,7 +8,6 @@ cd ~/path/to/project/directory
 mvn clean test package
 ```
 
-
 > ### Option configuration instructions
 
  Place src/main/resources/config/application.properties to the same directory, and configure application properties as : 
@@ -17,6 +16,7 @@ mvn clean test package
  app.scheduler.fixed-delay - Delay in milliseconds that sheduler should run
  app.provider.deserializer - The data type that provide url. Possible values : deserializer-jsonmapper and deserializer-xmlmapper
  ```
+ 
  ```properties
  spring.datasource.driver-class-name=org.h2.Driver
  spring.datasource.url=jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=FALSE
@@ -30,4 +30,12 @@ mvn clean test package
  app.provider.db=dao-h2-jdbc
  app.provider.deserializer=deserializer-jsonmapper
  app.provider.fetcher=fetcher-http
-```properties
+ app.api.limit.def.value=10
+
+ ```
+
+> ### Rest api 
+ ```
+ curl -X GET   http://localhost:8080/articles/{limit}   -H 'cache-control: no-cache'
+ {limit} is optional. If not present it wil take value of "app.api.limit.def.value" from application.properties 
+ ```

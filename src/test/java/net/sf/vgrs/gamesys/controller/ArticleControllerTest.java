@@ -1,6 +1,5 @@
 package net.sf.vgrs.gamesys.controller;
 
-import net.sf.vgrs.gamesys.Application;
 import net.sf.vgrs.gamesys.domain.Article;
 import net.sf.vgrs.gamesys.domain.Response;
 import net.sf.vgrs.gamesys.domain.exceptions.DBException;
@@ -11,18 +10,19 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
+import static net.sf.vgrs.gamesys.utils.TestConstants.LIMIT_DEFAULT_VALUE;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ArticleControllerTest {
+
+
+    private final List<Article> articles = Collections.singletonList(new Article());
 
     @Mock
     private ArticlesService articlesService;
@@ -31,17 +31,21 @@ public class ArticleControllerTest {
 
     @Before
     public void init() throws DBException {
-        controller = new ArticleController(articlesService);
-        Article article = new Article();
-        List<Article> articles = Collections.singletonList(article);
+        controller = new ArticleController(articlesService, LIMIT_DEFAULT_VALUE);
         Mockito.when(articlesService.get(1)).thenReturn(articles);
     }
 
 
     @Test
     public void get() {
-        Response response = controller.get(1);
+        Response response = controller.get(Optional.of(1));
         assertEquals(Response.ResponseStatuses.OK.value(), response.getStatus());
         assertEquals(response.getArticles().size(), 1);
+    }
+
+    @Test
+    public void testGetForDefaultValue() throws DBException {
+        controller.get(Optional.empty());
+        verify(articlesService).get(LIMIT_DEFAULT_VALUE);
     }
 }

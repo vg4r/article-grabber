@@ -30,4 +30,7 @@ public class TestConstants {
     ));
 
 
+    public static final Integer LIMIT_DEFAULT_VALUE = 10;
+
+
 }

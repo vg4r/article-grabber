@@ -41,6 +41,7 @@ public class Response {
 
     public void setArticles(List<Article> articles) {
         this.articles = articles;
+        setTotalResults(articles.size());
     }
 
     public enum ResponseStatuses {

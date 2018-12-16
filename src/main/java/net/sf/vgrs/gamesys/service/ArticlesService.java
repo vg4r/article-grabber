@@ -31,7 +31,7 @@ public class ArticlesService {
                 .collect(Collectors.toList());
         logger.trace(articles.size() - filteredArticles.size() + " articles removed from list");
 
-        long addCount = articlesDao.add(articles);
+        long addCount = articlesDao.add(filteredArticles);
         logger.trace("Added " + addCount + " articles from " + filteredArticles.size());
         return addCount;
     }
