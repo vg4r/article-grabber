@@ -1,4 +1,4 @@
-package net.sf.vgrs.gamesys.dao.h2;
+package net.sf.vgrs.gamesys.dao.jdbc;
 
 import net.sf.vgrs.gamesys.dao.ArticlesDao;
 import net.sf.vgrs.gamesys.domain.Article;
@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import static net.sf.vgrs.gamesys.dao.h2.SqlConstants.INSERT_ARTICLES;
+import static net.sf.vgrs.gamesys.dao.jdbc.SqlConstants.INSERT_ARTICLES;
 
 @Repository("dao-jdbcTemplate")
 public class ArticlesDaoJdbcTemplateImpl implements ArticlesDao {

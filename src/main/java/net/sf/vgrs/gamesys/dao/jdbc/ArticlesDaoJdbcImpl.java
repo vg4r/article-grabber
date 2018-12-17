@@ -1,4 +1,4 @@
-package net.sf.vgrs.gamesys.dao.h2;
+package net.sf.vgrs.gamesys.dao.jdbc;
 
 import net.sf.vgrs.gamesys.dao.ArticlesDao;
 import net.sf.vgrs.gamesys.dao.BaseDao;
@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static net.sf.vgrs.gamesys.dao.h2.SqlConstants.*;
+import static net.sf.vgrs.gamesys.dao.jdbc.SqlConstants.*;
 
-@Repository("dao-h2-jdbc")
+@Repository("dao-jdbc")
 public class ArticlesDaoJdbcImpl extends BaseDao implements ArticlesDao {
 
-    Logger logger = LoggerFactory.getLogger(ArticlesDaoJdbcTemplateImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ArticlesDaoJdbcTemplateImpl.class);
 
     public ArticlesDaoJdbcImpl(JdbcConnectionManager jdbcConnectionManager1) {
         super(jdbcConnectionManager1);
@@ -88,6 +88,7 @@ public class ArticlesDaoJdbcImpl extends BaseDao implements ArticlesDao {
             jdbcConnectionManager.executeQuery(rs -> {
                 while (rs.next()) {
                     Article article = new Article();
+                    article.setId(rs.getLong("id"));
                     article.setUrl(rs.getString("url"));
                     article.setAuthor(rs.getString("author"));
                     article.setTitle(rs.getString("title"));
@@ -108,7 +109,8 @@ public class ArticlesDaoJdbcImpl extends BaseDao implements ArticlesDao {
     public void delete() throws DBException {
         try {
             jdbcConnectionManager.openConnection();
-            jdbcConnectionManager.prepareStatement(DELETE_ARTICLES, ps -> { });
+            jdbcConnectionManager.prepareStatement(DELETE_ARTICLES, ps -> {
+            });
             jdbcConnectionManager.execute();
             jdbcConnectionManager.commit();
         } catch (SQLException e) {

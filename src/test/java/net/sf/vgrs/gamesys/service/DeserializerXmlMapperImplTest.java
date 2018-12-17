@@ -9,9 +9,8 @@ import org.junit.rules.ExpectedException;
 
 import java.nio.charset.Charset;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
-// import static org.junit.Assert.*;
 
 
 public class DeserializerXmlMapperImplTest {
@@ -31,9 +30,9 @@ public class DeserializerXmlMapperImplTest {
         Response response = deserializer.deserialize(TestConstants.TEST_ARTICLES_URL_XML_RESPONSE
                 .getBytes(Charset.forName("UTF-8")), Response.class);
 
-        assertTrue(Response.ResponseStatuses.OK.value().equals(response.getStatus()));
+        assertEquals(Response.ResponseStatuses.OK.value(), response.getStatus());
 
-        assertTrue(response.getArticles().size() == 2 );
+        assertEquals(2, response.getArticles().size());
 
     }
 }

@@ -1,7 +1,6 @@
 package net.sf.vgrs.gamesys.service;
 
 import net.sf.vgrs.gamesys.dao.ArticlesDao;
-import net.sf.vgrs.gamesys.dao.JdbcConnectionManager;
 import net.sf.vgrs.gamesys.domain.Article;
 import net.sf.vgrs.gamesys.domain.exceptions.DBException;
 import org.junit.Before;
@@ -21,16 +20,13 @@ import static org.junit.Assert.assertEquals;
 public class ArticlesServiceTest {
 
     @Mock
-    private JdbcConnectionManager connectionManager;
-
-    @Mock
     private ArticlesDao articlesDao;
 
     private ArticlesService articlesService;
 
     @Before
     public void init() {
-        articlesService = new ArticlesService(connectionManager, articlesDao);
+        articlesService = new ArticlesService(articlesDao);
     }
 
     @Test

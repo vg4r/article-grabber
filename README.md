@@ -10,7 +10,7 @@ mvn clean test package
 
 > ### Option configuration instructions
 
- Place src/main/resources/config/application.properties to the same directory, and configure application properties as : 
+ Place src/main/resources/config/application.properties to the same directory, and override configurations in application properties as : 
  ```
  app.data.source.url - The url for http source
  app.scheduler.fixed-delay - Delay in milliseconds that sheduler should run
@@ -36,6 +36,6 @@ mvn clean test package
 
 > ### Rest api 
  ```
- curl -X GET   http://localhost:8080/articles/{limit}   -H 'cache-control: no-cache'
- {limit} is optional. If not present it wil take value of "app.api.limit.def.value" from application.properties 
+ curl -X GET   http://localhost:8080/articles?limit={limit}   -H 'cache-control: no-cache'
+ ?limit={limit} is optional. If not present it wil take value of "app.api.limit.def.value" from application.properties 
  ```

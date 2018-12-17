@@ -1,4 +1,4 @@
-package net.sf.vgrs.gamesys.dao.h2;
+package net.sf.vgrs.gamesys.dao.jdbc;
 
 public enum H2SQLStates {
 

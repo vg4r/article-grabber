@@ -15,9 +15,6 @@ public class Response {
     public Response(ResponseStatuses status) {
         this.status = status.value();
     }
-    public Response(String status) {
-        this.status = status;
-    }
 
     public int getTotalResults() {
         return totalResults;

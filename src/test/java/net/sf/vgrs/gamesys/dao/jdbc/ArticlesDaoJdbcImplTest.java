@@ -1,28 +1,25 @@
-package net.sf.vgrs.gamesys.dao.h2;
+package net.sf.vgrs.gamesys.dao.jdbc;
 
 import net.sf.vgrs.gamesys.Application;
 import net.sf.vgrs.gamesys.dao.ArticlesDao;
 import net.sf.vgrs.gamesys.dao.JdbcConnectionManager;
 import net.sf.vgrs.gamesys.domain.Article;
 import net.sf.vgrs.gamesys.domain.exceptions.DBException;
-import net.sf.vgrs.gamesys.utils.TestConstants;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-import java.util.*;
+import java.util.List;
 
 import static net.sf.vgrs.gamesys.utils.TestConstants.ARTICLE_LIST_1;
 import static net.sf.vgrs.gamesys.utils.TestConstants.ARTICLE_LIST_2;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,7 +35,7 @@ public class ArticlesDaoJdbcImplTest {
     private ArticlesDao articlesDao;
 
     @Before
-    public void init(){
+    public void init() {
         connectionManager = new JdbcConnectionManager(dataSource);
         articlesDao = new ArticlesDaoJdbcImpl(connectionManager);
     }

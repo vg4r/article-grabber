@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SchedulerService {
 
-    Logger logger = LoggerFactory.getLogger(SchedulerService.class);
+    private static final Logger logger = LoggerFactory.getLogger(SchedulerService.class);
 
     private FetcherService service;
 
@@ -28,7 +28,7 @@ public class SchedulerService {
         try {
             Response response = service.fetch();
 
-            logger.trace("Got " + response.getArticles().size() + " articles");
+            logger.trace("Got {} articles", response.getArticles().size());
             articlesService.add(response.getArticles());
         } catch (Exception e) {
             logger.error("Exception occurred during scheduled method", e);

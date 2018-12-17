@@ -7,6 +7,7 @@ import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Article {
+    private Long id;
     private String url;
     private ArticleSource source;
     private String author;
@@ -21,7 +22,16 @@ public class Article {
 
     public Article(String url, String author, String title, Date publishedDate, String description, String content) {
         this.url = url;
-        this.source = source;
+        this.author = author;
+        this.title = title;
+        this.publishedDate = publishedDate;
+        this.description = description;
+        this.content = content;
+    }
+
+    public Article(Long id, String url, String author, String title, Date publishedDate, String description, String content) {
+        this.id = id;
+        this.url = url;
         this.author = author;
         this.title = title;
         this.publishedDate = publishedDate;
@@ -37,6 +47,14 @@ public class Article {
         this.publishedDate = publishedDate;
         this.description = description;
         this.content = content;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUrl() {

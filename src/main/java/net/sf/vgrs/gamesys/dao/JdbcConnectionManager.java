@@ -4,6 +4,7 @@ import net.sf.vgrs.gamesys.domain.exceptions.DBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
 import javax.sql.DataSource;
 import java.io.Closeable;
 import java.io.IOException;
@@ -15,8 +16,9 @@ import java.sql.SQLException;
 @Component
 public class JdbcConnectionManager implements Closeable {
 
+    private static final Logger logger = LoggerFactory.getLogger(JdbcConnectionManager.class);
+
     private final DataSource dataSource;
-    Logger logger = LoggerFactory.getLogger(JdbcConnectionManager.class);
     private Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
