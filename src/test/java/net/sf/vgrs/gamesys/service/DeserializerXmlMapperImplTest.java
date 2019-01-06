@@ -21,7 +21,7 @@ public class DeserializerXmlMapperImplTest {
     private Deserializer deserializer;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         deserializer = new DeserializerXMLMapperImpl();
     }
 

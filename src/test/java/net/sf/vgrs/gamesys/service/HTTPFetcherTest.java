@@ -2,11 +2,9 @@ package net.sf.vgrs.gamesys.service;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class HTTPFetcherTest {
 
@@ -24,7 +22,7 @@ public class HTTPFetcherTest {
     public void test() {
         byte[] bytes = fetcher.fetch();
 
-        assertTrue(bytes.length > 0);
+        assertThat(bytes.length).isGreaterThan(0);
 
     }
 

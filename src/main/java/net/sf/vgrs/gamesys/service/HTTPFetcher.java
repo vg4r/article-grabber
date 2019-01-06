@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -24,7 +23,7 @@ public class HTTPFetcher extends Fetcher {
     @Override
     public byte[] fetch() {
         try {
-            URL url = uri.toURL();
+            URL url = getUri().toURL();
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             InputStream inputStream = con.getInputStream();

@@ -10,8 +10,11 @@ import java.net.URI;
 @Component
 public abstract class Fetcher {
 
+    private final URI uri;
 
-    protected URI uri;
+    public URI getUri() {
+        return uri;
+    }
 
     @Autowired
     public Fetcher(@Value("${app.data.source.url}") URI uri) {
